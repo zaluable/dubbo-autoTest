@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+
+
+	http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+
+    <!-- 消费方应用名，用于计算依赖关系，不是匹配条件，不要与提供方一样 -->
+    <dubbo:application name="trade-soho3q-consumer" owner="liufeng,qianmingjin"/>
+
+    <!-- zk注册中心配置 -->
+    <dubbo:registry address="zookeeper://10.11.145.91:2181?backup=10.11.145.100:2181,10.11.145.103:2181" group=""/>
+    
+    <dubbo:protocol name="dubbo" port="-1" serialization="" threads="300" />   
+
+    <!-- 消费者配置 -->
+    <dubbo:consumer timeout="10000" check="false" group="test"
+                    retries="0"  version=""/>
+
+    <!-- 直连任何ip代码 -->
+    <!-- <dubbo:reference id="userCmsInterfaces" interface="com.le.jr.trade.usercenter.interfaces.UserCmsInterfaces" url="dubbo://10.16.95.27:20880" timeout="300000"/> -->
+
+    <!-- 订单 -->
+    <dubbo:reference id="orderCommonServiceInterface"
+                     interface="com.le.jr.trade.ordercenter.interfaces.OrderCommonServiceInterface"/>
+    <dubbo:reference id="orderSystemInterface" interface="com.le.jr.trade.ordercenter.interfaces.OrderSystemInterface"/>
+    <dubbo:reference id="orderUserServiceInterface"
+                     interface="com.le.jr.trade.ordercenter.interfaces.OrderUserServiceInterface"/>
+    <!--库存-->
+    <dubbo:reference id="stockInnerInterface" interface="com.le.jr.trade.stockcenter.interfaces.StockInnerInterface"/>
+
+    <!-- 项目 -->
+    <dubbo:reference id="productInterfaces" interface="com.lejr.trade.projectcenter.interfaces.ProductInterfaces" timeout="200000"/>
+    <dubbo:reference id="projectInterfaces" interface="com.lejr.trade.projectcenter.interfaces.ProjectInterfaces"
+                     timeout="20000"/>
+    <dubbo:reference id="projectIncomeInterfaces"
+                     interface="com.lejr.trade.projectcenter.interfaces.ProjectIncomeInterfaces"/>
+    <dubbo:reference id="reservePublishProjectInterfaces"
+                     interface="com.lejr.trade.projectcenter.interfaces.ReservePublishProjectInterfaces"
+                     timeout="20000"/>
+    <dubbo:reference id="projectContractInterfaces"
+                     interface="com.lejr.trade.projectcenter.interfaces.ProjectContractInterfaces"/>
+    <dubbo:reference id="displayInterfaces" interface="com.lejr.trade.projectcenter.interfaces.DisplayInterfaces" timeout="200000"/>
+    <dubbo:reference id="productFinanceInterfaces"
+                     interface="com.lejr.trade.projectcenter.interfaces.ProductFinanceInterfaces"/>
+    <dubbo:reference id="publicProjectInterfaces"
+                     interface="com.lejr.trade.projectcenter.interfaces.PublicProjectInterfaces"/>
+    <!--项目属性-->
+    <dubbo:reference id="projectPropertyInterfaces"
+                     interface="com.lejr.trade.projectcenter.interfaces.ProjectPropertyInterfaces"/>
+
+    <!-- 活期项目 -->
+    <dubbo:reference id="currentInterfaces" interface="com.lejr.trade.projectcenter.interfaces.CurrentInterfaces"/>
+
+    <!-- 账户 -->
+    <dubbo:reference id="accountInterface" interface="com.le.jr.trade.accountcenter.interfaces.AccountInterfaces"/>
+    <!-- 项目维度账户信息 -->
+    <dubbo:reference id="projectAssetProfitInterface"
+                     interface="com.le.jr.trade.accountcenter.interfaces.ProjectAssetProfitInterfaces"/>
+    <!-- 订单维度账户信息 -->
+    <dubbo:reference id="orderAssetProfitInterface"
+                     interface="com.le.jr.trade.accountcenter.interfaces.OrderAssetProfitInterfaces"/>
+    <!-- 用户 -->
+    <dubbo:reference id="userInterfaces" interface="com.le.jr.trade.usercenter.interfaces.UserInterfaces"
+                     timeout="10000"/>
+    <dubbo:reference id="userCmsInterfaces" interface="com.le.jr.trade.usercenter.interfaces.UserCmsInterfaces"/>
+    <dubbo:reference id="userExchangeCardInterfaces"
+                     interface="com.le.jr.trade.usercenter.interfaces.UserExchangeCardInterfaces"/>
+    <dubbo:reference id="userBankInterfaces"
+                     interface="com.le.jr.trade.usercenter.interfaces.UserBankInterfaces"/>
+
+
+    <!-- 合同管理 -->
+    <dubbo:reference id="contractTempletInterfaces"
+                     interface="com.le.jr.trade.contract.interfaces.ContractTempletInterfaces" timeout="500000"/>
+    <dubbo:reference id="contractTempletVersionInterfaces"
+                     interface="com.le.jr.trade.contract.interfaces.ContractTempletVersionInterfaces"
+                     timeout="500000"/><!-- 由于合同模板版本有附件备份操作，所以将超时时间设置为5分钟 -->
+
+    <!-- 内容管理 -->
+    <dubbo:reference id="contentCategoriesInterfaces"
+                     interface="com.le.jr.trade.content.interfaces.ContentCategoriesInterfaces"/>
+    <dubbo:reference id="contentColumnInterfaces"
+                     interface="com.le.jr.trade.content.interfaces.ContentColumnInterfaces"/>
+    <dubbo:reference id="contentNewsInterfaces" interface="com.le.jr.trade.content.interfaces.ContentNewsInterfaces"/>
+    <dubbo:reference id="contentPushInterfaces" interface="com.le.jr.trade.content.interfaces.ContentPushInterfaces"/>
+    <dubbo:reference id="contentDisplayPackageInterfaces" interface="com.le.jr.trade.content.interfaces.ContentDisplayPackageInterfaces"/>
+	<!-- 反馈 -->
+    <dubbo:reference id="feedBackInterfaces" interface="com.le.jr.trade.content.interfaces.FeedBackInterfaces"
+                     timeout="10000"/>
+
+    <!-- 供应商管理 -->
+    <dubbo:reference id="venderInterface" interface="com.le.jr.trade.vender.interfaces.VenderServiceInterface"/>
+    <!-- 商户管理 -->
+    <dubbo:reference id="merchantInterface"  interface="com.le.jr.trade.vender.interfaces.MerchantServiceInterface"/>
+
+    <!-- 兑付 -->
+    <dubbo:reference id="paycashApplyServiceInterface"
+                     interface="com.le.jr.trade.paycashcenter.interfaces.PaycashApplyServiceInterface" timeout="30000"/>
+    <dubbo:reference id="payApplyServiceInterface"
+                     interface="com.le.jr.trade.paycashcenter.interfaces.PayApplyServiceInterface" timeout="30000"/>
+    <dubbo:reference id="payOrderServiceInterface"
+                     interface="com.le.jr.trade.paycashcenter.interfaces.PayOrderServiceInterface"/>
+    <dubbo:reference id="currentRefundInterfaces"
+                     interface="com.le.jr.trade.paycashcenter.interfaces.CurrentRefundInterfaces"/>
+
+    <!-- 活期交易订单管理接口 -->
+    <dubbo:reference id="tradeOrderServiceInterface"
+                     interface="com.le.jr.trade.paycashcenter.interfaces.TradeOrderServiceInterface"/>
+
+    <!-- 活期交易订单管理接口 -->
+    <dubbo:reference id="currentPayOrderServiceInterface"
+                     interface="com.le.jr.trade.paycashcenter.interfaces.CurrentPayOrderServiceInterface"/>
+    <!-- 活期交易订单管理接口 -->
+    <dubbo:reference id="payCash4CmsOtherInterface"
+                     interface="com.le.jr.trade.paycashcenter.interfaces.PayCash4CmsOtherInterface"/>
+
+    <!-- 对账 -->
+    <dubbo:reference id="reconciliationInterfaceImpl"
+                     interface="com.le.jr.trade.reconciliation.interfaces.ReconciliationInterface" timeout="20000"/>
+    <!-- 支付 -->
+    <dubbo:reference id="payInterface"
+                     interface="com.le.jr.trade.tradingcenter.interfaces.PayInterface"
+                     timeout="30000"/>
+
+    <!-- 理财计算 -->
+    <dubbo:reference id="calculateProfitInterface"
+                     interface="com.le.jr.trade.financingbusiness.interfaces.CalculateProfitInterface"/>
+
+    <!-- reservation -->
+    <dubbo:reference id="activityInfoInterfaces"
+                     interface="com.le.jr.trade.reservation.interfaces.ActivityInfoInterfaces"/>
+
+    <!-- activity -->
+    <dubbo:reference id="activityEuroCupInterface"
+                     interface="com.le.jr.trade.activity.interfaces.ActivityEuroCupInterface"/>
+
+    <!-- 会计引擎 -->
+    <dubbo:reference id="clearingInterface" interface="com.le.jr.trade.clearing.interfaces.ClearingInterface"
+                     timeout="20000"/>
+    <dubbo:reference id="clearingCalvaluePersistenceInterface" interface="com.le.jr.trade.clearing.interfaces.ClearingCalvaluePersistenceInterface"
+                     timeout="20000"/>
+    <!--活期会计引擎相关服务-->
+    <dubbo:reference id="financialCurrentInterface" interface="com.le.jr.trade.clearing.interfaces.FinancialCurrentInterface"/>
+    <dubbo:reference id="financialCurrentDetailInterface" interface="com.le.jr.trade.clearing.interfaces.FinancialCurrentDetailInterface"/>
+    <dubbo:reference id="financialCurrentReceivableFeeInterface" interface="com.le.jr.trade.clearing.interfaces.FinancialCurrentReceivableFeeInterface"/>
+
+    <!-- 活期交易接口 -->
+    <dubbo:reference id="currentTradingInterface"
+                     interface="com.le.jr.trade.openapi.interfaces.trading.current.CurrentTradingInterface"/>
+    <!-- 活期交易接口日期工具类 -->
+    <dubbo:reference id="utilInterface"
+                     interface="com.le.jr.trade.openapi.interfaces.util.UtilInterface"/>
+
+    <!--活期订单-->
+    <dubbo:reference id="buyerOrderHoldTotalInterface"
+                     interface="com.le.jr.trade.buyertrade.interfaces.BuyerOrderHoldTotalInterface"/>
+    <dubbo:reference id="buyerOrderDailyHoldInterface"
+                     interface="com.le.jr.trade.buyertrade.interfaces.BuyerOrderDailyHoldInterface"/>
+
+    <!--会员管理-->
+    <dubbo:reference id="memberInterfaces" interface="com.le.jr.trade.membercenter.interfaces.MemberInterfaces"/>
+    <dubbo:reference id="memberValueRuleInterface"
+                     interface="com.le.jr.trade.membercenter.interfaces.MemberValueRuleInterface"/>
+    <!-- 推送消息-->
+    <dubbo:reference id="pushMessageService" interface="com.le.finance.push.service.PushMessageService"/>
+    <!--短信管理-->
+    <dubbo:reference id="shortMessageService" interface="com.le.finance.push.service.ShortMessageService"/>
+    <!-- 用户接口-->
+    <dubbo:reference id="userInfoService" interface="com.le.finance.push.service.UserInfoService"/>
+    <!-- 标签接口-->
+    <dubbo:reference id="tagService" interface="com.le.finance.push.service.TagService"/>
+    <!-- 审核接口-->
+    <dubbo:reference id="auditRecordService" interface="com.le.finance.push.service.AuditRecordService"/>
+    <!-- 推送用户接口-->
+    <dubbo:reference id="notificationUserService" interface="com.le.finance.push.service.NotificationUserService"/>
+    <!-- 资管对账：申购对账-->
+    <dubbo:reference id="purchaseBoaInterfaces" interface="com.le.jr.trade.orderboa.interfaces.PurchaseBoaInterfaces"/>
+    <!-- 资管对账：赎回对账-->
+    <dubbo:reference id="redeemBoaInterfaces" interface="com.le.jr.trade.orderboa.interfaces.RedeemBoaInterfaces"/>
+    <!-- 资管对账：异常处理-->
+    <dubbo:reference id="abnormalHandleInterfaces"
+                     interface="com.le.jr.trade.orderboa.interfaces.AbnormalHandleInterfaces"/>
+    <!-- 系统配置接口-->
+    <dubbo:reference id="configureServiceInterface"
+                     interface="com.le.jr.trade.configure.interfaces.ConfigureServiceInterface"/>
+    <dubbo:reference id="configureEnumServiceInterface"
+                     interface="com.le.jr.trade.configure.interfaces.ConfigureEnumServiceInterface"/>
+    <dubbo:reference id="figureTurnsServiceInterfaces"
+                     interface="com.le.jr.trade.configure.interfaces.FigureTurnsServiceInterfaces"/>
+    <dubbo:reference id="limitBankCardInterfaces"
+                     interface="com.le.jr.trade.configure.interfaces.LimitBankCardInterfaces"/>
+    <dubbo:reference id="pushManagerInterfaces"
+                     interface="com.le.jr.trade.configure.interfaces.PushManagerInterfaces"/>
+
+    <!-- 中超 -->
+	<dubbo:reference id="activityCXLInterface" interface="com.le.jr.trade.activity.interfaces.ActivityCXLInterface"/>
+    <!-- 中超营销 -->
+    <dubbo:reference id="marketActivityInterface" interface="com.le.jr.trade.activity.interfaces.MarketActivityInterface"/>
+
+    <!-- 营销 -->
+    <dubbo:reference id="promotionServiceRpc" interface="com.lejr.marketing.promotion.rpc.api.PromotionServiceRpc"/>
+
+    <!--申购订单上产生的赎回记录信息查询接口-->
+    <dubbo:reference id="redemptionPayInfoInterfaces" interface="com.le.jr.trade.investment.interfaces.RedemptionPayInfoInterfaces" />
+
+    <!--抽奖接口-->
+    <dubbo:reference id="userLotteryRecordInterfaces" interface="com.le.jr.marketing.event.lottery.interfaces.UserLotteryRecordInterfaces" timeout="200000"/>
+    <dubbo:reference id="userBeanBusinessInterfaces" interface="com.le.jr.marketing.event.interfaces.UserBeanBusinessInterfaces" />
+
+    <!--市场信息-->
+    <dubbo:reference id="drawLuckyInterfaces" interface="com.le.jr.trade.marketing.interfaces.DrawLuckyInterfaces" />
+
+    <!--权限-->
+    <dubbo:reference id="actionService" interface="com.le.jr.trade.systemuser.service.system.ActionService"  />
+
+    <dubbo:reference id="blackListService" interface="com.le.jr.trade.systemuser.service.system.BlackListService" />
+
+    <dubbo:reference id="menuService" interface="com.le.jr.trade.systemuser.service.system.MenuService" />
+
+    <dubbo:reference id="resourceActionService" interface="com.le.jr.trade.systemuser.service.system.ResourceActionService" />
+
+    <dubbo:reference id="resourceService" interface="com.le.jr.trade.systemuser.service.system.ResourceService" />
+
+    <dubbo:reference id="roleMenuService" interface="com.le.jr.trade.systemuser.service.system.RoleMenuService" />
+
+    <dubbo:reference id="roleResourceActionService" interface="com.le.jr.trade.systemuser.service.system.RoleResourceActionService" />
+
+    <dubbo:reference id="deptService" interface="com.le.jr.trade.systemuser.service.DeptService" />
+
+    <dubbo:reference id="jrCrmRoleService" interface="com.le.jr.trade.systemuser.service.JrCrmRoleService" />
+
+    <dubbo:reference id="oplogService" interface="com.le.jr.trade.systemuser.service.OplogService" />
+
+    <dubbo:reference id="roleService" interface="com.le.jr.trade.systemuser.service.RoleService" />
+
+    <dubbo:reference id="systemUserService" interface="com.le.jr.trade.systemuser.service.SystemUserService" />
+
+    <dubbo:reference id="resourceServcie" interface="com.le.jr.trade.systemuser.service.ResourceServcie"/>
+
+    <!-- 债权受让 -->
+    <dubbo:reference id="assignInfoInterface" interface="com.le.jr.trade.transfertrading.interfaces.AssignInfoInterface"/>
+    <!-- 债权转让 -->
+    <dubbo:reference id="transferInfoInterface" interface="com.le.jr.trade.transfertrading.interfaces.TransferInfoInterface"/>
+    <!-- 费率配置 -->
+    <dubbo:reference id="chargeConfigInterface" interface="com.le.jr.trade.transfertrading.interfaces.ChargeConfigInterface"/>
+    <!-- 转让条件配置 -->
+    <dubbo:reference id="conditionConfigInterface" interface="com.le.jr.trade.transfertrading.interfaces.ConditionConfigInterface"/>
+    <!-- 转让条件配置 -->
+    <dubbo:reference id="discountRateConfigInterface" interface="com.le.jr.trade.transfertrading.interfaces.DiscountRateConfigInterface"/>
+    <!-- 转让合同url -->
+    <dubbo:reference id="transferContractInterface" interface="com.le.jr.trade.transfertrading.interfaces.TransferContractInterface"/>
+
+    <!--页面资源-->
+    <dubbo:reference id="pageResourceServiceInterface" interface="com.le.jr.trade.configure.interfaces.PageResourceServiceInterface" />
+
+    <dubbo:reference id="pageModuleServiceInterface" interface="com.le.jr.trade.configure.interfaces.PageModuleServiceInterface" />
+    <dubbo:reference id="homePageFunctionAreaServiceInterface" interface="com.le.jr.trade.configure.interfaces.HomePageFunctionAreaServiceInterface" />
+    <dubbo:reference id="homePageActivityAreaServiceInterface" interface="com.le.jr.trade.configure.interfaces.HomePageActivityAreaServiceInterface" />
+    <dubbo:reference id="disoveryFunctionAreaServiceInterface" interface="com.le.jr.trade.configure.interfaces.DisoveryFunctionAreaServiceInterface" />
+    <!-- b2b统计 -->
+    <dubbo:reference id="b2BOrderAmountStatisticsInterface" interface="com.le.jr.trade.b2b.ordercenter.interfaces.B2BOrderAmountStatisticsInterface"/>
+    <!-- b2b统计 -->
+    <dubbo:reference id="b2BOrderCommonInterface" interface="com.le.jr.trade.b2b.ordercenter.interfaces.B2BOrderCommonInterface"/>
+    <!-- b2b统计 -->
+    <dubbo:reference id="b2BOrderProductionInterface" interface="com.le.jr.trade.b2b.ordercenter.interfaces.B2BOrderProductionInterface"/>
+</beans>
