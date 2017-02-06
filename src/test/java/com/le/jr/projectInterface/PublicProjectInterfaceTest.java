@@ -28,13 +28,13 @@ public class PublicProjectInterfaceTest extends AbstractTestNGSpringContextTests
     public void testSelectDisplayByDisplayCode() throws  Exception{
         Message<DisplayForCVo> msg = publicProjectInterfaces.selectDisplayByDisplayCode("60200316115");
         System.out.println(mapper.writeValueAsString(msg));
-        Assert.assertEquals(msg.getCode(),200);
+        Assert.assertEquals(msg.getCode(),100);
     }
     @Test
     public void testSelectProjectByProjectCode() throws  Exception{
         Message<PublicProjectVo> msg = publicProjectInterfaces.selectProjectByProjectCode("8341","200000002491",false,false);
         System.out.println(mapper.writeValueAsString(msg));
-        Assert.assertEquals(msg.getCode(),200);
+        Assert.assertEquals(msg.getCode(),100);
     }
    @Test
     public void testCheckVenderCodeIsRelate() throws Exception{
