@@ -1,6 +1,7 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 
 <suite name="DubboInterfaceTest" verbose="1" >
+    <parameter name="maxRetries" value="1"/>
     <test name="PublicProjectInterface" >
         <classes>
             <class name="com.le.jr.projectInterface.PublicProjectInterfaceTest" />
@@ -10,4 +11,8 @@
         <!--<listener class-name="org.uncommons.reportng.HTMLReporter" />-->
         <!--<listener class-name="org.uncommons.reportng.JUnitXMLReporter" />-->
     <!--</listeners>-->
+    <listeners>
+        <listener class-name="util.RetryListener" />
+        <listener class-name="util.TestListener" />
+    </listeners>
 </suite>

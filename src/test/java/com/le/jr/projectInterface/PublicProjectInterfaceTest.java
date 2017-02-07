@@ -6,10 +6,13 @@ import com.lejr.trade.projectcenter.domain.PublicProjectVo;
 import com.lejr.trade.projectcenter.domain.vo.DisplayForCVo;
 import com.lejr.trade.projectcenter.interfaces.DisplayInterfaces;
 import com.lejr.trade.projectcenter.interfaces.PublicProjectInterfaces;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import util.RetryListener;
 
 import javax.annotation.Resource;
 
@@ -19,16 +22,18 @@ import javax.annotation.Resource;
  */
 @ContextConfiguration(locations = "classpath:spring-config-consumer.xml")
 public class PublicProjectInterfaceTest extends AbstractTestNGSpringContextTests{
+    private static final Logger logger = LoggerFactory.getLogger(PublicProjectInterfaceTest.class);
     ObjectMapper mapper = new ObjectMapper();
 
     @Resource
     private PublicProjectInterfaces publicProjectInterfaces;
 
-    @Test
+    @Test(retryAnalyzer = util.RetryListener.class)
     public void testSelectDisplayByDisplayCode() throws  Exception{
         Message<DisplayForCVo> msg = publicProjectInterfaces.selectDisplayByDisplayCode("60200316115");
         System.out.println(mapper.writeValueAsString(msg));
         Assert.assertEquals(msg.getCode(),100);
+
     }
     @Test
     public void testSelectProjectByProjectCode() throws  Exception{
