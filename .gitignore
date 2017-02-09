@@ -4,4 +4,4 @@ test-output/*
 *.iml
 .git/*
 Logs/*
-src/main/resources/conf
+src/main/resources/conf/*
