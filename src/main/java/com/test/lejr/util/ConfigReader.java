@@ -1,4 +1,4 @@
-package util;
+package com.test.lejr.util;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

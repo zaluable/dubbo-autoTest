@@ -152,7 +152,7 @@
                      <!--interface="com.le.jr.trade.openapi.interfaces.trading.current.CurrentTradingInterface"/>-->
     <!--&lt;!&ndash; 活期交易接口日期工具类 &ndash;&gt;-->
     <!--<dubbo:reference id="utilInterface"-->
-                     <!--interface="com.le.jr.trade.openapi.interfaces.util.UtilInterface"/>-->
+                     <!--interface="com.le.jr.trade.openapi.interfaces.com.test.lejr.util.UtilInterface"/>-->
 
     <!--&lt;!&ndash;活期订单&ndash;&gt;-->
     <!--<dubbo:reference id="buyerOrderHoldTotalInterface"-->

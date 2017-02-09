@@ -1,10 +1,9 @@
-package util;
+package com.test.lejr.util.customerListener;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.IRetryAnalyzer;
 import org.testng.ITestResult;
-import org.testng.Reporter;
 
 /**
  * Created by zhangxiao3 on 2017/2/7.

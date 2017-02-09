@@ -4,3 +4,4 @@ test-output/*
 *.iml
 .git/*
 Logs/*
+conf/*
